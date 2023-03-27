@@ -79,17 +79,32 @@
                 }
             }
         },
+        "tools": {
+            "title": "Tools",
+            "type": "object",
+            "description": "Enable usage of tools for workflow",
+            "default": "",
+            "fa_icon": "fas fa-hammer",
+            "properties": {
+                "vep": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Run annotation with VEP"
+                },
+                "tsv": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Convert VEP-annotated output to TSV format.",
+                    "help_text": "Required vep = true."
+                }
+            }
+        },
         "annotation_options": {
             "title": "Annotation options",
             "type": "object",
             "description": "VEP-related options for annotation of VCF files",
             "default": "",
             "properties": {
-                "vep": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable annotation using VEP"
-                },
                 "vep_out_format": {
                     "type": "string",
                     "default": "vcf",
@@ -376,6 +391,9 @@
         },
         {
             "$ref": "#/definitions/reference_genome_options"
+        },
+        {
+            "$ref": "#/definitions/tools"
         },
         {
             "$ref": "#/definitions/annotation_options"

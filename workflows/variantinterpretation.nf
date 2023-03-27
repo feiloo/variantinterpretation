@@ -68,6 +68,7 @@ include { INPUT_CHECK    } from '../subworkflows/local/input_check'
 // MODULE: Installed directly from nf-core/modules
 //
 include { ENSEMBLVEP_VEP              } from '../modules/nf-core/ensemblvep/vep/main' 
+include { BCFTOOLS_VEP_TO_TSV          } from '../modules/local/bcftools/split-vep/main' 
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -104,7 +105,13 @@ workflow VARIANTINTERPRETATION {
                         fasta,
                         vep_extra_files)
         ch_versions = ch_versions.mix(ENSEMBLVEP_VEP.out.versions)
+
+        if (params.tsv) {
+           BCFTOOLS_VEP_TO_TSV( ENSEMBLVEP_VEP.out.vcf)
+            ch_versions = ch_versions.mix(ENSEMBLVEP_VEP.out.versions)
+        }
     }
+
 
     // dump software versions
     ch_version_yaml = Channel.empty()

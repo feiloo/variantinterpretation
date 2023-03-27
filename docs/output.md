@@ -13,6 +13,7 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [ensemblvep](#ensemblvep) - Annotated VCF file and summary.
+- [bcftools +split-vep](#splitvep) - Convert VEP output to TSV.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -27,6 +28,17 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
   </details>
 
 [VEP](https://www.ensembl.org/info/docs/tools/vep/index.html) annotated variants based on provided public databases. It provides biological information as protein consequence and effect prediction as well as co-located variants from existing databases giving information, e.g., about population allele frequencies. For full overview, see the [VEP annotation sources](https://www.ensembl.org/info/docs/tools/vep/script/vep_cache.html) and [VEP command flags](https://www.ensembl.org/info/docs/tools/vep/script/vep_options.html).
+
+### Bcftools split-vep plugin
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bcftools/`
+  - `*.tsv`: TSV file with one variant per row.
+  </details>
+
+Converted previous VEP-annotated VCf files to TSV file format using [bcftools split-vep plugin](https://samtools.github.io/bcftools/howtos/plugin.split-vep.html). Added header and annotate all possible transcripts as comma/separated entries with one variant per row.
 
 ### MultiQC
 
