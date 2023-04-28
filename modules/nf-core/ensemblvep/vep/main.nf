@@ -46,7 +46,6 @@ process ENSEMBLVEP_VEP {
         --cache \\
         --cache_version $cache_version \\
         --dir_cache $dir_cache \\
-        --fork $task.cpus \\
         --stats_file ${prefix}.summary.html \\
 
 
