@@ -48,6 +48,8 @@ process ENSEMBLVEP_VEP {
         --dir_cache $dir_cache \\
         --stats_file ${prefix}.summary.html \\
 
+    echo hello
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
