@@ -5,6 +5,7 @@ on:
     branches:
       - dev
       - ci_dev
+      - ci_dev_debug
   pull_request:
   release:
     types: [published]
