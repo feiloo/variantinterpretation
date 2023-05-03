@@ -1,4 +1,8 @@
 process ENSEMBLVEP_VEP {
+    time '6m'
+    errorStrategy 'retry'
+    maxRetries 3
+
     tag "$meta.id"
     label 'process_medium'
 
