@@ -43,11 +43,19 @@ jobs:
         run: |
           for trial in $(seq 1 3);
           do
+                echo "running pipeline trial $trial"
                 retval=0
-                timeout -s INT --foreground --preserve-status 600 nextflow run ${GITHUB_WORKSPACE} -profile test_ukb,podman --vep_cache /opt/vep_cache/108/indexed  --outdir ./results --input /opt/testdata_variantinterpretation/samplesheet.csv --fasta /opt/ncbi_grch38_wholegenomefasta_genome.fa || retval=$?
+
+                timeout -s INT --foreground 600 nextflow run ${GITHUB_WORKSPACE} -profile test_ukb,podman --vep_cache /opt/vep_cache/108/indexed  --outdir ./results --input /opt/testdata_variantinterpretation/samplesheet.csv --fasta /opt/ncbi_grch38_wholegenomefasta_genome.fa || retval=$?
 
                 if [[ $retval -eq 0 ]];
                 then 
+                        break
+                # if not a timeout error
+                elif [[ $retval -eq 124 ]];
+                then
+                        echo "pipeline timed out"
+                else
                         break
                 fi
           done
