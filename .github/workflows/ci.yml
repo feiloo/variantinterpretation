@@ -35,8 +35,8 @@ jobs:
         # TODO nf-core: You can customise CI pipeline run tests as required
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
+        # timeout -s INT --foreground 600 nextflow run ${GITHUB_WORKSPACE} -profile test_ukb,podman --vep_cache /opt/vep_cache/108/indexed  --outdir ./results --input /opt/testdata_variantinterpretation/samplesheet.csv --fasta /opt/ncbi_grch38_wholegenomefasta_genome.fa || true
+        # cat .nextflow.log || true
+        # find . -iname '.command.err' -exec cat {} \; || true
         run: |
-                timeout -s INT --foreground 600 nextflow run ${GITHUB_WORKSPACE} -profile test_ukb,podman --vep_cache /opt/vep_cache/108/indexed  --outdir ./results --input /opt/testdata_variantinterpretation/samplesheet.csv --fasta /opt/ncbi_grch38_wholegenomefasta_genome.fa || true
-
-                cat .nextflow.log || true
-                find . -iname '.command.err' -exec cat {} \; || true
+                nextflow run ${GITHUB_WORKSPACE} -profile test_ukb,podman --vep_cache /opt/vep_cache/108/indexed  --outdir ./results --input /opt/testdata_variantinterpretation/samplesheet.csv --fasta /opt/ncbi_grch38_wholegenomefasta_genome.fa
