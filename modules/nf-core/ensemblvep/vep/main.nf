@@ -46,6 +46,7 @@ process ENSEMBLVEP_VEP {
         --cache \\
         --cache_version $cache_version \\
         --dir_cache $dir_cache \\
+        --fork $task.cpus \\
         --stats_file ${prefix}.summary.html \\
 
     cat <<-END_VERSIONS > versions.yml
@@ -63,8 +64,8 @@ process ENSEMBLVEP_VEP {
     touch ${prefix}.summary.html
 
     cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        ensemblvep: \$( echo \$(vep --help 2>&1) | sed 's/^.*Versions:.*ensembl-vep : //;s/ .*\$//')
-    END_VERSIONS
+	"${task.process}":
+	    ensemblvep: \$( echo \$(vep --help 2>&1) | sed 's/^.*Versions:.*ensembl-vep : //;s/ .*\$//')
+	END_VERSIONS
     """
 }
